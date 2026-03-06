@@ -2,6 +2,7 @@ from navegador import Navegador
 from telegram import Telegram
 from playwright.async_api import Browser
 import asyncio
+import datetime
 
 SELECTORES_POR_NOMBRE = {
   'platea1CampoTextoBoletas': 'input[data-section_id=S_PLT1]',
@@ -9,7 +10,7 @@ SELECTORES_POR_NOMBRE = {
 }
 
 async def verificarBoletasDisponibilidad(navegador: Browser) -> bool:
-  print('Buscando boletas')
+  print(f'Buscando boletas {datetime.datetime.now()}')
 
   htmlParseado = await navegador.obtenerPaginaContenido()
 

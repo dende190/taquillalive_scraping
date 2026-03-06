@@ -3,6 +3,7 @@ from telegram import Telegram
 from playwright.async_api import Browser
 import asyncio
 import re
+import datetime
 
 SELECTORES_POR_NOMBRE = {
   'vueloMasEconomicoPrecio': '[role=tablist] [data-hveid] [data-gs]',
@@ -12,8 +13,9 @@ SELECTORES_POR_NOMBRE = {
 async def verificarVueloEconomico(navegador: Browser, enlace: str):
   vueloMasEconomicoPrecioAntiguo = 0;
   telegram = Telegram()
+
   while True:
-    print('Buscando vuelos')
+    print(f'Buscando vuelos {datetime.datetime.now()}')
 
     htmlParseado = await navegador.obtenerPaginaContenido()
 
