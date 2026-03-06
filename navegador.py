@@ -4,7 +4,7 @@ import random
 import time
 
 class Navegador:
-  PAGINA_TIEMPO_ESPERA_EN_MILISEGUNDOS = 60000
+  PAGINA_TIEMPO_ESPERA_EN_MILISEGUNDOS = 120000
   ENCABEZADO_USUARIO_AGENTE = (
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
   )
@@ -57,10 +57,16 @@ class Navegador:
 
     while True:
       try:
-        await pagina.reload(timeout=60000, wait_until='networkidle')
+        await (
+          pagina
+          .reload(
+            timeout=self.PAGINA_TIEMPO_ESPERA_EN_MILISEGUNDOS,
+            wait_until='networkidle'
+          )
+        )
         break
       except TimeoutError:
-        await pagina.reload(timeout=60000, wait_until='networkidle')
+        continue
 
     paginaContenido = await pagina.content()
     return BeautifulSoup(paginaContenido, 'html.parser')
