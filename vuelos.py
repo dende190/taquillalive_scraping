@@ -1,5 +1,6 @@
 from navegador import Navegador
 from telegram import Telegram
+from playwright.async_api import Browser
 import asyncio
 import re
 
