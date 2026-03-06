@@ -24,6 +24,10 @@ async def verificarVueloEconomico(navegador: Browser, enlace: str):
       .text
     )
 
+    if not vueloMasEconomicoPrecioTexto:
+      print('No encontro el valor del precio')
+      continue
+
     vueloMasEconomicoPrecio = (
       int(re.split(r'\s', vueloMasEconomicoPrecioTexto)[1].replace(',', ''))
     )
