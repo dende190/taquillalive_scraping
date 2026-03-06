@@ -52,9 +52,15 @@ class Navegador:
 
   async def recargar(self):
     print('recargando pagina')
-
     time.sleep(random.uniform(1, 6))
     pagina = self.pagina
-    await pagina.reload(wait_until='networkidle')
+
+    while True:
+      try:
+        await pagina.reload(timeout=60000, wait_until='networkidle')
+        break
+      except TimeoutError:
+        await pagina.reload(timeout=60000, wait_until='networkidle')
+
     paginaContenido = await pagina.content()
     return BeautifulSoup(paginaContenido, 'html.parser')
