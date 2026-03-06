@@ -17,13 +17,14 @@ async def verificarVueloEconomico(navegador: Browser, enlace: str):
 
     htmlParseado = await navegador.obtenerPaginaContenido()
 
-    vueloMasEconomicoPrecioTexto = (
-      htmlParseado
-      .select(SELECTORES_POR_NOMBRE['vueloMasEconomicoPrecio'])
-      [0]
-      .text
+    dVueloMasEconomicoPrecio = (
+      htmlParseado.select(SELECTORES_POR_NOMBRE['vueloMasEconomicoPrecio'])
     )
+    if not dVueloMasEconomicoPrecio:
+      print('No encontro el valor del precio')
+      continue
 
+    vueloMasEconomicoPrecioTexto = dVueloMasEconomicoPrecio[0].text
     if not vueloMasEconomicoPrecioTexto:
       print('No encontro el valor del precio')
       continue
